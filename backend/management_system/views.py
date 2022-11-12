@@ -56,6 +56,13 @@ class GroupViewSet(viewsets.ModelViewSet):
             return GroupDetailedSerializer
         return GroupSerializer
 
+    def get_queryset(self):
+        queryset = self.queryset
+        student_id = self.request.query_params.get('student')
+        if student_id is not None:
+            queryset = queryset.filter(studentxgroup__student__pk=student_id)
+        return queryset
+
 
 class ApplicationViewSet(viewsets.ModelViewSet):
     serializer_class = ApplicationDetailedSerializer
