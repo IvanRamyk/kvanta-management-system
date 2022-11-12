@@ -29,6 +29,13 @@ class StudentViewSet(viewsets.ModelViewSet):
             return StudentDetailedSerializer
         return StudentSerializer
 
+    def get_queryset(self):
+        queryset = self.queryset
+        parent_id = self.request.query_params.get('parent')
+        if parent_id is not None:
+            queryset = queryset.filter(parent__pk=parent_id)
+        return queryset
+
 
 class SubjectViewSet(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
@@ -61,7 +68,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        parent_username = self.request.query_params.get('parent')
-        if parent_username is not None:
-            queryset = queryset.filter(student__parent__username=parent_username)
+        parent_id = self.request.query_params.get('parent')
+        if parent_id is not None:
+            queryset = queryset.filter(student__parent__pk=parent_id)
         return queryset
