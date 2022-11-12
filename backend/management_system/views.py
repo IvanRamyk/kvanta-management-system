@@ -58,3 +58,10 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         if self.action in ("list", "retrieve"):
             return ApplicationDetailedSerializer
         return ApplicationSerializer
+
+    def get_queryset(self):
+        queryset = self.queryset
+        parent_username = self.request.query_params.get('parent')
+        if parent_username is not None:
+            queryset = queryset.filter(student__parent__username=parent_username)
+        return queryset
