@@ -7,6 +7,7 @@ class User(AbstractUser):
 
 
 class Student(models.Model):
+    parent = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=63)
     last_name = models.CharField(max_length=63)
 
@@ -18,11 +19,16 @@ class Subject(models.Model):
     default_lesson_rate = models.IntegerField()
 
 
+class Semester(models.Model):
+    year = models.IntegerField()
+    number = models.IntegerField()
+
+
 class Group(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     name = models.CharField(max_length=63)
-    first_semester_duration = models.IntegerField()
-    second_semester_duration = models.IntegerField()
+    duration = models.IntegerField()
     lesson_rate = models.IntegerField()
 
 
