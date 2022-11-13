@@ -8,10 +8,10 @@ from management_system.serializers import (
     StudentSerializer,
     SubjectSerializer,
     SemesterSerializer,
-    GroupDetailedSerializer,
+    GroupListSerializer,
     GroupSerializer,
     ApplicationDetailedSerializer,
-    ApplicationSerializer,
+    ApplicationSerializer, GroupDetailedSerializer,
 )
 
 
@@ -48,11 +48,13 @@ class SemesterViewSet(viewsets.ModelViewSet):
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    serializer_class = GroupDetailedSerializer
+    serializer_class = GroupListSerializer
     queryset = Group.objects.all()
 
     def get_serializer_class(self):
-        if self.action in ("list", "retrieve"):
+        if self.action == "list":
+            return GroupListSerializer
+        if self.action == "retrieve":
             return GroupDetailedSerializer
         return GroupSerializer
 

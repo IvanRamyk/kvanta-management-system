@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from management_system.models import Student, Subject, Semester, Group, Application
+from management_system.models import Student, Subject, Semester, Group, Application, StudentXGroup
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -49,15 +49,34 @@ class SemesterSerializer(serializers.ModelSerializer):
         fields = ("id", "year", "number")
 
 
+class StudentXGroupSerializer(serializers.ModelSerializer):
+    student = StudentSerializer(many=False)
+
+    class Meta:
+        model = StudentXGroup
+        fields = ("id", "student")
+
+
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ("subject", "semester", "name", "duration", "lesson_rate")
+        fields = ("id", "subject", "semester", "name", "duration", "lesson_rate")
 
 
-class GroupDetailedSerializer(GroupSerializer):
+class GroupListSerializer(GroupSerializer):
     subject = SubjectSerializer(many=False)
     semester = SemesterSerializer(many=False)
+
+
+class GroupDetailedSerializer(GroupListSerializer):
+    students = StudentXGroupSerializer(
+        source="studentxgroup_set",
+        many=True
+    )
+
+    class Meta:
+        model = Group
+        fields = ("id", "subject", "semester", "name", "duration", "lesson_rate", "students",)
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
