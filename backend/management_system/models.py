@@ -17,6 +17,7 @@ class Student(models.Model):
 
 class Subject(models.Model):
     title = models.CharField(max_length=63, unique=True)
+    description = models.TextField(blank=True, null=True)
     default_first_semester_duration = models.IntegerField(default=13)
     default_second_semester_duration = models.IntegerField(default=15)
     default_lesson_rate = models.IntegerField()

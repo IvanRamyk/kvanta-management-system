@@ -40,6 +40,7 @@ class SubjectSerializer(serializers.ModelSerializer):
             "default_first_semester_duration",
             "default_second_semester_duration",
             "default_lesson_rate",
+            "description",
         )
 
 
