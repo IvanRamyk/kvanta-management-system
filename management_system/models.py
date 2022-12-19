@@ -41,12 +41,21 @@ class Group(models.Model):
     duration = models.IntegerField()
     lesson_rate = models.IntegerField()
 
+    def __str__(self):
+        return self.name
+
 
 class StudentXGroup(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.student} in {self.group}"
+
 
 class Application(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.student} {self.subject} appliction"
