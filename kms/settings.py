@@ -136,9 +136,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "management_system.User"
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    "https://kvanta-stage.web.app/courses",
-    "https://kvanta-stage.web.app/*",
-    "https://kvanta-stage.web.app"
-]
+CORS_ORIGIN_ALLOW_ALL = True
+
