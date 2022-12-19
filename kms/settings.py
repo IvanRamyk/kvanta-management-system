@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-cp=6e8(hp%v#9s)^s*9*w^y01w&on47l@l-5bb7%2_&(np7&xn"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = DEBUG = 'RENDER' not in os.environ
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -134,4 +134,3 @@ AUTH_USER_MODEL = "management_system.User"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
-
